@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 931411558892465217}
   - component: {fileID: 7134394306300016162}
   m_Layer: 5
-  m_Name: "Descri\xE7\xE3o"
+  m_Name: Descricao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

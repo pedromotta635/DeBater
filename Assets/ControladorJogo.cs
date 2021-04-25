@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Controlador : MonoBehaviour
+
+
+public class ControladorJogo : MonoBehaviour
 {
-	public List<GameObject> baralho;
 	public GameObject cartaPrefab;
+	public List<GameObject> baralho;
+	public List<GameObject> pilha;
 
 	void Start()
 	{
@@ -21,12 +25,38 @@ public class Controlador : MonoBehaviour
 			new Carta("Carta 9", "Faz [e] de efeito.", 3, 0),
 			new Carta("Carta 10", "Faz [e] de efeito.", 2, 0)
 		};
+
 		for (int i = 0; i < 10; i++)
 		{
-			baralho.Add(Instantiate(cartaPrefab, transform.position, transform.rotation));
+			baralho.Add(Instantiate(cartaPrefab));
+			baralho[i].transform.Find("Nome").GetComponent<Text>().text = cartas[i].nome;
+			baralho[i].transform.Find("Descricao").GetComponent<Text>().text = cartas[i].TextoDescricao();
+		}
+
+		foreach (GameObject carta in baralho)
+		{
+			Debug.Log(carta.transform.Find("Descricao").GetComponent<Text>().text);
+			pilha.Add(carta);
+		}
+		Shuffle(pilha);
+		foreach (GameObject carta in pilha)
+		{
+			Debug.Log($"{carta.transform.Find("Nome").GetComponent<Text>().text}: {carta.transform.Find("Descricao").GetComponent<Text>().text}");
 		}
 	}
 	
+	public void Shuffle<T>(IList<T> list)  
+	{
+		System.Random rng = new System.Random();
+	    int n = list.Count;  
+	    while (n > 1) {  
+	    	n--;  
+	        int k = rng.Next(n + 1);  
+	        T value = list[k];  
+	        list[k] = list[n];  
+	        list[n] = value;  
+	    }  
+	}
 }
 
 class Carta
