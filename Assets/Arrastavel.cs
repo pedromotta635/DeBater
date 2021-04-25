@@ -18,11 +18,11 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
 		placeholder = new GameObject();
 		placeholder.transform.SetParent(this.transform.parent);
-		var l = placeholder.AddComponent<LayoutElement>();
-		l.preferredWidth = GetComponent<LayoutElement>().preferredWidth;
-		l.preferredWidth = GetComponent<LayoutElement>().preferredHeight;
-		l.flexibleWidth = 0;
-		l.flexibleHeight = 0;
+		var le = placeholder.AddComponent<LayoutElement>();
+		le.preferredWidth = GetComponent<LayoutElement>().preferredWidth;
+		le.preferredWidth = GetComponent<LayoutElement>().preferredHeight;
+		le.flexibleWidth = 0;
+		le.flexibleHeight = 0;
 
 		placeholder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
 

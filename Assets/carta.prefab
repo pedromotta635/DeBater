@@ -89,6 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f51fb50c0addc641865613ab92e26f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destino: {fileID: 0}
+  placeholder: {fileID: 0}
+  dano: 5
 --- !u!114 &-133643199144605070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,8 +107,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 100
-  m_PreferredHeight: 200
+  m_PreferredWidth: 200
+  m_PreferredHeight: 300
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1

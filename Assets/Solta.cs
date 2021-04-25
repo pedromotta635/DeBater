@@ -36,7 +36,6 @@ public class Solta : MonoBehaviour, IDropHandler
 		if (vida == 0)
 		{
 			transform.GetChild(0).Rotate(00.0f, 00.0f, 90.0f);
-			Debug.Log(vida);
 		}
 	}
 }
