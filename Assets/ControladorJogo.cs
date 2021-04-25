@@ -23,7 +23,7 @@ public class Controlador : MonoBehaviour
 		};
 		for (int i = 0; i < 10; i++)
 		{
-			baralho.add(Instantiate(cartaPrefab, transform.position, transform.rotation));
+			baralho.Add(Instantiate(cartaPrefab, transform.position, transform.rotation));
 		}
 	}
 	
@@ -45,6 +45,6 @@ class Carta
 
 	public string TextoDescricao()
 	{
-		return descricao.replace("[e]", efeito.toString());
+		return descricao.Replace("[e]", efeito.ToString());
 	}
 }
