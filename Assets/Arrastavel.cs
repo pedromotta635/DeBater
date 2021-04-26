@@ -7,10 +7,9 @@ using UnityEngine.EventSystems;
 public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public Transform destino;
-
 	public GameObject placeholder;
 
-	public int dano = 5;
+	public int efeito, custo;
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
@@ -20,7 +19,7 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 		placeholder.transform.SetParent(this.transform.parent);
 		var le = placeholder.AddComponent<LayoutElement>();
 		le.preferredWidth = GetComponent<LayoutElement>().preferredWidth;
-		le.preferredWidth = GetComponent<LayoutElement>().preferredHeight;
+		le.preferredHeight = GetComponent<LayoutElement>().preferredHeight;
 		le.flexibleWidth = 0;
 		le.flexibleHeight = 0;
 

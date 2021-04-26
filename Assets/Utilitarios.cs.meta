@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 20b344089c6a94146b5b508fc7f29a02
+guid: 53a9b49d8e5e9d44f86b6b4175eb285c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - cartaPrefab: {fileID: 6685696810573180603, guid: 2729534db99a19e4d9b1408b6ecd4b04,
-      type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

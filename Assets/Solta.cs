@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Solta : MonoBehaviour, IDropHandler
 {
+	private ControladorJogo controlador;
 	private int _vida;
 	public int vida
 	{
@@ -23,6 +24,7 @@ public class Solta : MonoBehaviour, IDropHandler
 
 	void Start()
 	{
+		controlador = transform.parent.GetComponent<ControladorJogo>();
 		vida = 10;
 	}
 
@@ -30,12 +32,13 @@ public class Solta : MonoBehaviour, IDropHandler
 	{
 		Debug.Log($"drop {gameObject.name}");
 		carta = eventData.pointerDrag.GetComponent<Arrastavel>();
-		vida -= carta.dano;
+		vida -= carta.efeito;
 		Destroy(carta.placeholder);
 		Destroy(eventData.pointerDrag);
 		if (vida == 0)
 		{
-			transform.GetChild(0).Rotate(00.0f, 00.0f, 90.0f);
+			transform.parent.Find("ImagemIA").Rotate(00.0f, 00.0f, 90.0f);
+			gameObject.SetActive(false);
 		}
 	}
 }
