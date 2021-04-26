@@ -13,8 +13,6 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		Debug.Log("beginDrag");
-
 		placeholder = new GameObject();
 		placeholder.transform.SetParent(this.transform.parent);
 		var le = placeholder.AddComponent<LayoutElement>();
@@ -38,7 +36,6 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		Debug.Log("endDrag");
 		this.transform.SetParent(destino);
 		this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
 		GetComponent<CanvasGroup>().blocksRaycasts = true;

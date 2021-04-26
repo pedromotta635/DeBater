@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Plateia : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private int _apoio = 0;
+	public int apoio
+	{
+		get
+		{
+			return _apoio;
+		}
+		set
+		{
+			if (value <= 100 && value >= -100) _apoio = value;
+		}
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void AlterarApoioPor(int valor)
+	{
+		apoio += valor;
+		transform.Find("Apoio").GetComponent<Text>().text = apoio.ToString();
+	}
 }

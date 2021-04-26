@@ -32,11 +32,20 @@ public class ControladorJogo : MonoBehaviour
 	public List<GameObject> baralho;
 	public List<GameObject> pilha;
 
+	public Descarte descarte;
+
 	private GameObject mao;
+
+	private Plateia plateia;
+
+	private int efeitoIA = -30;
 
 	void Start()
 	{
 		mao = transform.Find("Mao").gameObject;
+		plateia = transform.Find("Plateia").GetComponent<Plateia>();
+
+		descarte = transform.Find("Descarte").GetComponent<Descarte>();
 
 		// Cria vetor de cartas no código
 		Carta[] cartas = {
@@ -96,12 +105,57 @@ public class ControladorJogo : MonoBehaviour
 
 	public void DarCartas()
 	{
-		// Tira as cartas da pilha e 
-		for (int _ = 0; _ < 4; _++)
+		int c = pilha.Count;
+		if (c >= 4)
 		{
-			pilha[0].transform.SetParent(mao.transform, false);
-			pilha.RemoveAt(0);
+			Debug.Log("if");
+			for (int _ = 0; _ < 4; _++)
+			{
+				pilha[0].transform.SetParent(mao.transform, false);
+				pilha.RemoveAt(0);
+			}
 		}
+		else if (c == 0)
+		{
+			Debug.Log("elseif");
+			foreach (GameObject carta in descarte.descarte)
+			{
+				pilha.Add(carta);
+			}
+			descarte.Esvaziar();
+			for (int _ = 0; _ < 4; _++)
+			{
+				pilha[0].transform.SetParent(mao.transform, false);
+				pilha.RemoveAt(0);
+			}
+		}
+		else
+		{
+			Debug.Log($"else - {c} - {descarte.descarte.Count}");
+			for (int _ = 0; _ < c; _++)
+			{
+				pilha[0].transform.SetParent(mao.transform, false);
+				pilha.RemoveAt(0);
+			}
+			foreach (GameObject carta in descarte.descarte)
+			{
+				Debug.Log("A");
+				pilha.Add(carta);
+			}
+			Debug.Log(pilha.Count);
+			descarte.Esvaziar();
+			for (int _ = 0; _ < 4 - c; _++)
+			{
+				pilha[0].transform.SetParent(mao.transform, false);
+				pilha.RemoveAt(0);
+			}
+		}
+		// Tira as cartas da pilha e as coloca na mao
+		
+	}
+	public void AcaoIA()
+	{
+		plateia.AlterarApoioPor(efeitoIA);
 	}
 }
 
