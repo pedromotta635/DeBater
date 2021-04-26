@@ -13,4 +13,18 @@ public static class Utils
 	{
 		return new Color((float) r / 255, (float) g / 255, (float) b / 255, transparencia);
 	}
+
+	// Método Fisher-Yates para embaralhar listas
+	public static void Embaralhar<T>(IList<T> list)  
+	{
+		System.Random rng = new System.Random();
+	    int n = list.Count;  
+	    while (n > 1) {  
+	    	n--;  
+	        int k = rng.Next(n + 1);  
+	        T value = list[k];  
+	        list[k] = list[n];  
+	        list[n] = value;  
+	    }  
+	}
 }

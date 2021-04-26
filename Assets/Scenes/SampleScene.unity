@@ -644,7 +644,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cartaPrefab: {fileID: 6685696810573180603, guid: 2729534db99a19e4d9b1408b6ecd4b04,
     type: 3}
-  baralho: []
   pilha: []
   descarte: {fileID: 0}
 --- !u!1 &1090851210

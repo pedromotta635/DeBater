@@ -17,7 +17,6 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 		placeholder.transform.SetParent(this.transform.parent);
 		var le = placeholder.AddComponent<LayoutElement>();
 		le.preferredWidth = GetComponent<LayoutElement>().preferredWidth;
-		le.preferredHeight = GetComponent<LayoutElement>().preferredHeight;
 		le.flexibleWidth = 0;
 		le.flexibleHeight = 0;
 
