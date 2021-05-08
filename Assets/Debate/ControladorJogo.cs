@@ -30,12 +30,10 @@ public class Jogador
 	public static readonly Jogador jogador = new Jogador();
 
 	private const int energiaInicialImutavel = 4;
+	public int energiaInicial = energiaInicialImutavel;
+	public int energia = energiaInicialImutavel;
 
 	public List<GameObject> baralho = new List<GameObject>();
-
-	public int energiaInicial = energiaInicialImutavel;
-
-	public int energia = energiaInicialImutavel;
 
 	public Jogador()
 	{}
@@ -84,6 +82,7 @@ public class ControladorJogo : MonoBehaviour
 	public Descarte descarte;
 
 	private GameObject mao;
+	public GameObject textoIA;
 
 	private Plateia plateia;
 
@@ -93,6 +92,8 @@ public class ControladorJogo : MonoBehaviour
 
 	void Start()
 	{
+		textoIA.GetComponent<Text>().text = efeitoIA.ToString();
+
 		mao = transform.Find("Mao").gameObject;
 		plateia = transform.Find("Plateia").GetComponent<Plateia>();
 
@@ -169,6 +170,7 @@ public class ControladorJogo : MonoBehaviour
 	public void AcaoIA()
 	{
 		plateia.AlterarApoioPor(efeitoIA);
+
 	}
 }
 

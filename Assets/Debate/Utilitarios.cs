@@ -8,6 +8,7 @@ public static class Utils
 	public static readonly Color verde = Cor(0, 200, 0, 1.0f);
 	public static readonly Color azul = Cor(0, 200, 200, 1.0f);
 	public static readonly Color amarelo = Cor(200, 200, 0, 1.0f);
+	public static readonly System.Random rng = new System.Random();
 
 	public static Color Cor(int r, int g, int b, float transparencia)
 	{
@@ -17,7 +18,6 @@ public static class Utils
 	// Método Fisher-Yates para embaralhar listas
 	public static void Embaralhar<T>(IList<T> list)  
 	{
-		System.Random rng = new System.Random();
 	    int n = list.Count;  
 	    while (n > 1) {  
 	    	n--;  
