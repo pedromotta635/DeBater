@@ -3,28 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Carta
-{
-	public string nome;
-	public string descricao;
-	public int efeito;
-	public int custo;
-	public Color cor;
-	public Carta(string nome, string descricao, int efeito, int custo, Color cor)
-	{
-		this.nome = nome;
-		this.descricao = descricao;
-		this.efeito = efeito;
-		this.custo = custo;
-		this.cor = cor;
-	}
-
-	public string AplicarFormatacao()
-	{
-		return descricao.Replace("[e]", efeito.ToString());
-	}
-}
-
 public class Jogador
 {
 	public static readonly Jogador jogador = new Jogador();
@@ -101,16 +79,16 @@ public class ControladorJogo : MonoBehaviour
 
 		// Cria vetor de cartas no código
 		Carta[] cartas = {
-			new Carta("Carta 1", "Faz [e] de efeito.", 5, 1, Utils.verde),
-			new Carta("Carta 2", "Faz [e] de efeito.", 5, 1, Utils.verde),
-			new Carta("Carta 3", "Faz [e] de efeito.", 12, 2, Utils.vermelho),
-			new Carta("Carta 4", "Faz [e] de efeito.", 5, 1, Utils.verde),
-			new Carta("Carta 5", "Faz [e] de efeito.", 7, 1, Utils.verde),
-			new Carta("Carta 6", "Faz [e] de efeito.", 12, 2, Utils.vermelho),
-			new Carta("Carta 7", "Faz [e] de efeito.", 25, 3, Utils.azul),
-			new Carta("Carta 8", "Faz [e] de efeito.", 5, 1, Utils.verde),
-			new Carta("Carta 9", "Faz [e] de efeito.", 3, 0, Utils.amarelo),
-			new Carta("Carta 10", "Faz [e] de efeito.", 2, 0, Utils.amarelo)
+			new Carta("Carta 1", "Faz [e] de efeito.", 1, Utils.verde),
+			new Carta("Carta 2", "Faz [e] de efeito.", 1, Utils.verde),
+			new Carta("Carta 3", "Faz [e] de efeito.", 2, Utils.vermelho),
+			new Carta("Carta 4", "Faz [e] de efeito.", 1, Utils.verde),
+			new Carta("Carta 5", "Faz [e] de efeito.", 1, Utils.verde),
+			new Carta("Carta 6", "Faz [e] de efeito.", 2, Utils.vermelho),
+			new Carta("Carta 7", "Faz [e] de efeito.", 3, Utils.azul),
+			new Carta("Carta 8", "Faz [e] de efeito.", 1, Utils.verde),
+			new Carta("Carta 9", "Faz [e] de efeito.", 0, Utils.amarelo),
+			new Carta("Carta 10", "Faz [e] de efeito.", 0, Utils.amarelo)
 		};
 		jogador.InicializarBaralho(cartas, pilha, cartaPrefab);
 		Utils.Embaralhar(pilha);
