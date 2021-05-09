@@ -8,8 +8,7 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 {
 	public Transform destino;
 	public GameObject placeholder;
-
-	public int efeito, custo;
+	public Carta carta;
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{

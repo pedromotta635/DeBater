@@ -11,9 +11,12 @@ public class Jogador
 	public int energiaInicial = energiaInicialImutavel;
 	public int energia = energiaInicialImutavel;
 
+	public int nivelContraArgumento
+	{ get; set; } = 0;
+
 	public List<GameObject> baralho = new List<GameObject>();
 
-	public Jogador()
+	private Jogador()
 	{}
 
 	public void InicializarBaralho(Carta[] cartas, List<GameObject> pilha, GameObject prefab)
@@ -35,12 +38,11 @@ public class Jogador
 		cartaObjeto.GetComponent<CanvasRenderer>().SetColor(cartaInfo.cor);
 		cartaObjeto.transform.Find("Nome").GetComponent<Text>().text = cartaInfo.nome;
 		cartaObjeto.transform.Find("Descricao").GetComponent<Text>().text = cartaInfo.AplicarFormatacao();
-		cartaObjeto.GetComponent<Arrastavel>().efeito = cartaInfo.efeito;
-		cartaObjeto.GetComponent<Arrastavel>().custo = cartaInfo.custo;
+		cartaObjeto.GetComponent<Arrastavel>().carta = cartaInfo;
 		cartaObjeto.transform.Find("Custo").GetComponent<Text>().text = cartaInfo.custo.ToString();
 	}
 
-	public bool ValidarCarta(Arrastavel carta)
+	public bool ValidarCarta(Carta carta)
 	{
 		if (carta.custo <= energia)
 		{
@@ -79,16 +81,7 @@ public class ControladorJogo : MonoBehaviour
 
 		// Cria vetor de cartas no código
 		Carta[] cartas = {
-			new Carta("Carta 1", "Faz [e] de efeito.", 1, Utils.verde),
-			new Carta("Carta 2", "Faz [e] de efeito.", 1, Utils.verde),
-			new Carta("Carta 3", "Faz [e] de efeito.", 2, Utils.vermelho),
-			new Carta("Carta 4", "Faz [e] de efeito.", 1, Utils.verde),
-			new Carta("Carta 5", "Faz [e] de efeito.", 1, Utils.verde),
-			new Carta("Carta 6", "Faz [e] de efeito.", 2, Utils.vermelho),
-			new Carta("Carta 7", "Faz [e] de efeito.", 3, Utils.azul),
-			new Carta("Carta 8", "Faz [e] de efeito.", 1, Utils.verde),
-			new Carta("Carta 9", "Faz [e] de efeito.", 0, Utils.amarelo),
-			new Carta("Carta 10", "Faz [e] de efeito.", 0, Utils.amarelo)
+			new ArgumentoBasico
 		};
 		jogador.InicializarBaralho(cartas, pilha, cartaPrefab);
 		Utils.Embaralhar(pilha);
