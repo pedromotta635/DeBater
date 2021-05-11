@@ -5,16 +5,17 @@ using System;
 
 abstract public class Carta
 {
-	private readonly Jogador jogador = Jogador.jogador;
+	protected readonly Jogador jogador = Jogador.jogador;
 
-	public static enum Tipo { Argumento, ContraArgumento, Falacia };
+	public enum Tipo { Argumento, ContraArgumento, Falacia };
+
 	public abstract Tipo tipo { get; }
 	
 	public abstract bool jogavel { get; set; }
 	public abstract string nome { get; set; }
 	public abstract string descricao { get; set; }
 	public abstract int custo { get; set; }
-	public abstract string imagem { get; set;}
+	public abstract string imagem { get; }
 
 	public Color cor = Utils.amarelo;
 
@@ -26,28 +27,30 @@ abstract public class Carta
 abstract public class Argumento : Carta
 {
 	public override Tipo tipo { get; } = Tipo.Argumento;
-	public override bool jogavel = true;
+	public override bool jogavel { get; set; } = true;
 }
 
 abstract public class ContraArgumento : Carta
 {
 	public override Tipo tipo { get; } = Tipo.ContraArgumento;
+	public override bool jogavel { get; set; } = true;
 }
 
 abstract public class Falacia : Carta
 {
 	public override Tipo tipo { get; } = Tipo.Falacia;
+	public override bool jogavel { get; set; } = true;
 }
 
 
 public class ArgumentoBasico : Argumento
 {
 	public override string nome { get; set; } = "Argumentar";
-	public override int custo { get; set; } = 1;
 	public override string descricao { get; set; } = "Convence a audiência em [e].";
+	public override string imagem { get; }
+	public override int custo { get; set; } = 1;
 	public int efeito { get; set; } = 20;
 
-	public override string imagem { get; set; }
 	public override void AplicarEfeito(Plateia plateia)
 	{
 		plateia.AlterarApoioPor(efeito);
@@ -61,10 +64,12 @@ public class ArgumentoBasico : Argumento
 
 public class ContraArgumentoBasico : ContraArgumento
 {
-	public override string nome = { get; set; } = "Réplica";
-	public override int custo { get; set; } = 1;
+	public override string nome { get; set; } = "Réplica";
 	public override string descricao { get; set; } = "Contra-argumento por [e]";
+	public override string imagem { get; }
+	public override int custo { get; set; } = 1;
 	public int efeito = 10;
+	
 	
 	public override void AplicarEfeito(Plateia plateia)
 	{
