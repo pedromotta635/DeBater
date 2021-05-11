@@ -1,59 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Jogador
-{
-	public static readonly Jogador jogador = new Jogador();
-
-	private const int energiaInicialImutavel = 4;
-	public int energiaInicial = energiaInicialImutavel;
-	public int energia = energiaInicialImutavel;
-
-	public int nivelContraArgumento
-	{ get; set; } = 0;
-
-	public List<GameObject> baralho = new List<GameObject>();
-
-	private Jogador()
-	{}
-
-	public void InicializarBaralho(Carta[] cartas, List<GameObject> pilha, GameObject prefab)
-	{
-		foreach (Carta cartaInfo in cartas)
-		{
-			InicializarCarta(cartaInfo, prefab);
-		}
-		foreach (GameObject carta in baralho)
-		{
-			pilha.Add(carta);
-		}
-	}
-
-	private void InicializarCarta(Carta cartaInfo, GameObject prefab)
-	{
-		GameObject cartaObjeto = GameObject.Instantiate(prefab);
-		baralho.Add(cartaObjeto);
-		cartaObjeto.GetComponent<CanvasRenderer>().SetColor(cartaInfo.cor);
-		cartaObjeto.transform.Find("Nome").GetComponent<Text>().text = cartaInfo.nome;
-		cartaObjeto.transform.Find("Descricao").GetComponent<Text>().text = cartaInfo.Formatar();
-		cartaObjeto.GetComponent<Arrastavel>().carta = cartaInfo;
-		cartaObjeto.transform.Find("Custo").GetComponent<Text>().text = cartaInfo.custo.ToString();
-	}
-
-	public bool ValidarCarta(Carta carta)
-	{
-		if (carta.jogavel && carta.custo <= energia)
-		{
-			energia -= carta.custo;
-			return true;
-		}
-		return false;
-	}
-}
-
-public class ControladorJogo : MonoBehaviour
+public class ControladorDebate : MonoBehaviour
 {
 	public GameObject cartaPrefab;
 
@@ -80,15 +30,8 @@ public class ControladorJogo : MonoBehaviour
 		plateia = transform.Find("Plateia").GetComponent<Plateia>();
 
 		descarte = transform.Find("Descarte").GetComponent<Descarte>();
-
-		// Cria vetor de cartas no código
-		Carta[] cartas = {
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-		};
-		jogador.InicializarBaralho(cartas, pilha, cartaPrefab);
+		
+		jogador.InicializarBaralho(pilha, cartaPrefab);
 		Utils.Embaralhar(pilha);
 		DarCartas();
 	}

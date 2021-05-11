@@ -16,11 +16,11 @@ public class Plateia : MonoBehaviour
 			else _apoio = value;
 		}
 	}
-	private ControladorJogo controlador;
+	private ControladorDebate controlador;
 
 	void Start()
 	{
-		controlador = transform.parent.GetComponent<ControladorJogo>();
+		controlador = transform.parent.GetComponent<ControladorDebate>();
 	}
 
 	public void AlterarApoioPor(int valor)

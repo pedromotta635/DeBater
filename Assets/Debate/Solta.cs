@@ -5,14 +5,14 @@ using UnityEngine.EventSystems;
 
 public class Solta : MonoBehaviour, IDropHandler
 {
-	private ControladorJogo controlador;
+	private ControladorDebate controlador;
 	private Jogador jogador = Jogador.jogador;
 	private Descarte descarte;
 	private Plateia plateia;
 
 	void Start()
 	{
-		controlador = transform.parent.GetComponent<ControladorJogo>();
+		controlador = transform.parent.GetComponent<ControladorDebate>();
 		plateia = transform.parent.Find("Plateia").GetComponent<Plateia>();
 		descarte = transform.parent.Find("Descarte").GetComponent<Descarte>();
 	}

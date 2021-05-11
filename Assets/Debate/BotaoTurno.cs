@@ -8,11 +8,12 @@ public class BotaoTurno : MonoBehaviour
 
 	private Jogador jogador = Jogador.jogador;
 
-	private ControladorJogo controlador;
+	private ControladorDebate
+ controlador;
 
 	void Start()
 	{
-		controlador = transform.parent.GetComponent<ControladorJogo>();
+		controlador = transform.parent.GetComponent<ControladorDebate>();
 		descarte = transform.parent.Find("Descarte").GetComponent<Descarte>();
 	}
 
@@ -22,6 +23,6 @@ public class BotaoTurno : MonoBehaviour
 		descarte.RetirarCartas();
 		controlador.AcaoIA();
 		controlador.DarCartas();
-		jogador.energia = jogador.energiaInicial;
+		jogador.NovoTurno();
 	}
 }
