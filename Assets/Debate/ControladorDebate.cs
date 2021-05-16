@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Classe responsável por controlar o funcionamento de um debate
 public class ControladorDebate : MonoBehaviour
 {
 	public GameObject cartaPrefab;
@@ -17,14 +18,14 @@ public class ControladorDebate : MonoBehaviour
 	public Button botaoTurno;
 
 	private Plateia plateia;
-
-	private int efeitoIA = -30;
+	private Ia ia = new IaBasica();
 
 	private Jogador jogador = Jogador.jogador;
 
 	void Start()
 	{
-		textoIA.GetComponent<Text>().text = efeitoIA.ToString();
+		ia.NovoEfeito();
+		textoIA.GetComponent<Text>().text = ia.texto;
 
 		mao = transform.Find("Mao").gameObject;
 		plateia = transform.Find("Plateia").GetComponent<Plateia>();
@@ -92,13 +93,21 @@ public class ControladorDebate : MonoBehaviour
 				pilha[0].transform.SetParent(mao.transform, false);
 				pilha.RemoveAt(0);
 			}
-		}
-		
+		}	
 	}
+
+	public void AcabarTurno()
+	{
+		descarte.RetirarCartas();
+		AcaoIA();
+		DarCartas();
+		jogador.NovoTurno();
+	}
+
 	public void AcaoIA()
 	{
-		plateia.AlterarApoioPor(efeitoIA);
-
+		ia.Acao(plateia);
+		ia.NovoEfeito();
 	}
 
 	public void Vitoria()
@@ -110,7 +119,7 @@ public class ControladorDebate : MonoBehaviour
 
 	public void Derrota()
 	{
-		popup.transform.GetChild(0).GetComponent<Text>().text = "Vitória!";
+		popup.transform.GetChild(0).GetComponent<Text>().text = "Derrota";
 		popup.SetActive(true);
 		botaoTurno.interactable = false;
 	}

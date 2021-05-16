@@ -8,8 +8,7 @@ public class BotaoTurno : MonoBehaviour
 
 	private Jogador jogador = Jogador.jogador;
 
-	private ControladorDebate
- controlador;
+	private ControladorDebate controlador;
 
 	void Start()
 	{

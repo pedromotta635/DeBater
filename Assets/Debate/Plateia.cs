@@ -31,5 +31,9 @@ public class Plateia : MonoBehaviour
 		{
 			controlador.Vitoria();
 		}
+		else if (apoio <= -100)
+		{
+			controlador.Derrota();
+		}
 	}
 }

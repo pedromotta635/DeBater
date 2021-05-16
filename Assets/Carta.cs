@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+// Classe base de todas as cartas
 abstract public class Carta
 {
 	protected readonly Jogador jogador = Jogador.jogador;
@@ -24,25 +26,28 @@ abstract public class Carta
 	public abstract void AplicarEfeito(Plateia plateia);
 }
 
+// Classe base de todos os Argumentos
 abstract public class Argumento : Carta
 {
 	public override Tipo tipo { get; } = Tipo.Argumento;
 	public override bool jogavel { get; set; } = true;
 }
 
+// Classe base de todos os Contra-Argumentos
 abstract public class ContraArgumento : Carta
 {
 	public override Tipo tipo { get; } = Tipo.ContraArgumento;
 	public override bool jogavel { get; set; } = true;
 }
 
+// Classe base de todas as Falácias
 abstract public class Falacia : Carta
 {
 	public override Tipo tipo { get; } = Tipo.Falacia;
 	public override bool jogavel { get; set; } = true;
 }
 
-
+// Classes declaradas a partir daqui representam cartas individuais
 public class ArgumentoBasico : Argumento
 {
 	public override string nome { get; set; } = "Argumentar";
@@ -65,11 +70,10 @@ public class ArgumentoBasico : Argumento
 public class ContraArgumentoBasico : ContraArgumento
 {
 	public override string nome { get; set; } = "Réplica";
-	public override string descricao { get; set; } = "Contra-argumento por [e]";
+	public override string descricao { get; set; } = "Contra-argumenta por [e] de apoio.";
 	public override string imagem { get; }
 	public override int custo { get; set; } = 1;
 	public int efeito = 10;
-	
 	
 	public override void AplicarEfeito(Plateia plateia)
 	{

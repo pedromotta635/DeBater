@@ -15,15 +15,17 @@ public class Jogador
 	// A única instância do Jogador
 	public static readonly Jogador jogador = new Jogador();
 
-	// O quanto de energia
 	private const int energiaInicial = 4;
 	public int energiaPorTurno = energiaInicial;
 	public int energia = energiaInicial;
 
+	// O nível de Contra-Argumento
 	public int nivelContraArgumento { get; set; } = 0;
 
+	// Lista de cartas para serem usadas no debate
 	public List<GameObject> baralho = new List<GameObject>();
 
+	// Lista da representação das cartas no código
 	public List<Carta> cartas;
 
 	private Jogador()
