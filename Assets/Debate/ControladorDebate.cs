@@ -12,11 +12,13 @@ public class ControladorDebate : MonoBehaviour
 
 	public Descarte descarte;
 
+	[SerializeField]
 	private GameObject mao;
-	public GameObject textoIA;
+	public TextoIA textoIA;
 	public GameObject popup;
 	public Button botaoTurno;
 
+	[SerializeField]
 	private Plateia plateia;
 	private Ia ia = new IaBasica();
 
@@ -25,13 +27,7 @@ public class ControladorDebate : MonoBehaviour
 	void Start()
 	{
 		ia.NovoEfeito();
-		textoIA.GetComponent<Text>().text = ia.texto;
-
-		mao = transform.Find("Mao").gameObject;
-		plateia = transform.Find("Plateia").GetComponent<Plateia>();
-
-		descarte = transform.Find("Descarte").GetComponent<Descarte>();
-		
+		//textoIA.GetComponent<Text>().text = ia.texto;
 		jogador.InicializarBaralho(pilha, cartaPrefab);
 		Utils.Embaralhar(pilha);
 		DarCartas();

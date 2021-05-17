@@ -8,12 +8,16 @@ public interface IEfeito
 {
 	string texto { get; }
 
+	Carta.Tipo tipo { get; }
+
 	void Aplicar(Plateia plateia);
 }
 
 public class EfeitoArgumentar : IEfeito
 {
 	public string texto { get; }
+
+	public Carta.Tipo tipo { get; } = Carta.Tipo.Argumento;
 
 	private int efeito;
 
@@ -32,6 +36,8 @@ public class EfeitoArgumentar : IEfeito
 public class EfeitoContraArgumentar : IEfeito
 {
 	public string texto { get; }
+
+	public Carta.Tipo tipo { get; } = Carta.Tipo.ContraArgumento;
 
 	private int efeito;
 	private Ia ia;
@@ -68,10 +74,7 @@ public abstract class Ia
 			}
 			return _efeitoAtual;
 		}
-		private set
-		{
-			_efeitoAtual = value;
-		}
+		private set { _efeitoAtual = value; }
 	}
 
 	public virtual IEfeito NovoEfeito()

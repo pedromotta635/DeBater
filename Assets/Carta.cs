@@ -9,8 +9,8 @@ abstract public class Carta
 {
 	protected readonly Jogador jogador = Jogador.jogador;
 
+	// Tipo da carta
 	public enum Tipo { Argumento, ContraArgumento, Falacia };
-
 	public abstract Tipo tipo { get; }
 	
 	public abstract bool jogavel { get; set; }
@@ -21,8 +21,10 @@ abstract public class Carta
 
 	public Color cor = Utils.amarelo;
 
+	// Função que aplica a formatação ao texto
 	public abstract string Formatar();
 
+	// Função chamada quando a carta é jogada
 	public abstract void AplicarEfeito(Plateia plateia);
 }
 

@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -265, y: 163}
+  m_AnchoredPosition: {x: -409, y: 165.35}
   m_SizeDelta: {x: 100, y: 100.69467}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &483697935
@@ -646,10 +646,12 @@ MonoBehaviour:
   cartaPrefab: {fileID: 6685696810573180603, guid: 2729534db99a19e4d9b1408b6ecd4b04,
     type: 3}
   pilha: []
-  descarte: {fileID: 0}
-  textoIA: {fileID: 1090851210}
+  descarte: {fileID: 2028122318}
+  mao: {fileID: 1478893048}
+  textoIA: {fileID: 1090851214}
   popup: {fileID: 2009833694}
   botaoTurno: {fileID: 1524150509}
+  plateia: {fileID: 826807715}
 --- !u!1 &1090851210
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +663,7 @@ GameObject:
   - component: {fileID: 1090851211}
   - component: {fileID: 1090851213}
   - component: {fileID: 1090851212}
+  - component: {fileID: 1090851214}
   m_Layer: 5
   m_Name: AcaoIA
   m_TagString: Untagged
@@ -728,6 +731,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090851210}
   m_CullTransparentMesh: 0
+--- !u!114 &1090851214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090851210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1396d7fd74f93354fa37670bbb1b2cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texto: {fileID: 1090851212}
 --- !u!1 &1149451699
 GameObject:
   m_ObjectHideFlags: 0
