@@ -5,12 +5,9 @@ using UnityEngine;
 public class Descarte : MonoBehaviour
 {
 	public List<GameObject> descarte = new List<GameObject>();
+	
+	[SerializeField]
 	private GameObject mao;
-
-	void Start()
-	{
-		mao = transform.parent.Find("Mao").gameObject;
-	}
 
 	public void RetirarCartas()
 	{
@@ -31,11 +28,5 @@ public class Descarte : MonoBehaviour
 		carta.transform.position = this.transform.position;
 	}
 
-	public void Esvaziar()
-	{
-		for (int i = descarte.Count - 1; i >= 0; i--)
-		{
-			descarte.RemoveAt(i);
-		}
-	}
+	public void Esvaziar() => descarte.Clear();
 }

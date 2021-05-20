@@ -10,11 +10,12 @@ public class ControladorDebate : MonoBehaviour
 
 	public List<GameObject> pilha;
 
-	public Descarte descarte;
-
 	[SerializeField]
-	private GameObject mao;
-	public TextoIA textoIA;
+	private Descarte descarte;
+
+	public GameObject mao;
+	[SerializeField]
+	private TextoIA textoIA;
 	public GameObject popup;
 	public Button botaoTurno;
 
@@ -27,6 +28,7 @@ public class ControladorDebate : MonoBehaviour
 	void Start()
 	{
 		ia.NovoEfeito();
+		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
 		//textoIA.GetComponent<Text>().text = ia.texto;
 		jogador.InicializarBaralho(pilha, cartaPrefab);
 		Utils.Embaralhar(pilha);
@@ -35,11 +37,11 @@ public class ControladorDebate : MonoBehaviour
 	
 	public void VirarCartas(int n)
 	{
-		int c = 0;
-		for (int _ = 0; _ < c; _++)
+		int c;
+		for (c = 0; c < n; c++)
 		{
-			pilha[0].transform.SetParent(mao.transform, false);
-			pilha.RemoveAt(0);
+			if (pilha.Count <= 0)
+			{}
 		}
 	}
 	
@@ -48,7 +50,6 @@ public class ControladorDebate : MonoBehaviour
 		int c = pilha.Count;
 		if (c >= 4)
 		{
-			Debug.Log("if");
 			for (int _ = 0; _ < 4; _++)
 			{
 				pilha[0].transform.SetParent(mao.transform, false);
@@ -57,7 +58,6 @@ public class ControladorDebate : MonoBehaviour
 		}
 		else if (c == 0)
 		{
-			Debug.Log("elseif");
 			foreach (GameObject carta in descarte.descarte)
 			{
 				pilha.Add(carta);
@@ -79,10 +79,8 @@ public class ControladorDebate : MonoBehaviour
 			}
 			foreach (GameObject carta in descarte.descarte)
 			{
-				Debug.Log("A");
 				pilha.Add(carta);
 			}
-			Debug.Log(pilha.Count);
 			descarte.Esvaziar();
 			for (int _ = 0; _ < 4 - c; _++)
 			{
@@ -104,6 +102,7 @@ public class ControladorDebate : MonoBehaviour
 	{
 		ia.Acao(plateia);
 		ia.NovoEfeito();
+		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
 	}
 
 	public void Vitoria()
