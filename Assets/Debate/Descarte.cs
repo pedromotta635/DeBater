@@ -11,10 +11,8 @@ public class Descarte : MonoBehaviour
 
 	public void RetirarCartas()
 	{
-		Debug.Log(mao.transform.childCount);
 		for (int i = mao.transform.childCount - 1; i >= 0; i--)
 		{
-			Debug.Log(i);
 			descarte.Add(mao.transform.GetChild(i).gameObject);
 			mao.transform.GetChild(i).position = this.transform.position;
 			mao.transform.GetChild(i).SetParent(this.transform);

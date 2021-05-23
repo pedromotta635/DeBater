@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 /*
  * Classe Responsável por:
- *   Armazenar o estado do jogo
  *   Realizar as ações para o funcionamento do estado
  *   Armazenar o estado do jogador no debate
  *   Realizar as ações do jogador no debate
@@ -18,9 +17,16 @@ public class Jogador
 	private const int energiaInicial = 4;
 	public int energiaPorTurno = energiaInicial;
 	public int energia = energiaInicial;
+	public const int cartasPorTurno = 5;
 
 	// O nível de Contra-Argumento
-	public int nivelContraArgumento { get; set; } = 0;
+	[SerializeField]
+	private int _nivelContraArgumento = 0;
+	public int nivelContraArgumento
+	{
+		get => _nivelContraArgumento;
+		set { _nivelContraArgumento = value < 0 ? 0 : value; }
+	}
 
 	// Lista de cartas para serem usadas no debate
 	public List<GameObject> baralho = new List<GameObject>();
@@ -35,6 +41,9 @@ public class Jogador
 			new ArgumentoBasico(),
 			new ArgumentoBasico(),
 			new ArgumentoBasico(),
+			new ArgumentoBasico(),
+			new ContraArgumentoBasico(),
+			new ContraArgumentoBasico()
 		};
 	}
 
