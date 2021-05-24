@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Eventos;
 
 public class Solta : MonoBehaviour, IDropHandler
 {
-	private ControladorDebate controlador;
 	private Jogador jogador = Jogador.jogador;
+	[SerializeField]
 	private Descarte descarte;
+	[SerializeField]
 	private Plateia plateia;
 
-	void Start()
-	{
-		controlador = transform.parent.GetComponent<ControladorDebate>();
-		plateia = transform.parent.Find("Plateia").GetComponent<Plateia>();
-		descarte = transform.parent.Find("Descarte").GetComponent<Descarte>();
-	}
+	public EventoCarta cartaJogada = new EventoCarta();
 
     public void OnDrop(PointerEventData eventData)
 	{
@@ -23,6 +20,7 @@ public class Solta : MonoBehaviour, IDropHandler
 		if (jogador.ValidarCarta(objeto.carta))
 		{
 			objeto.carta.AplicarEfeito(plateia);
+			cartaJogada.Invoke(objeto.carta);
 			//plateia.AlterarApoioPor(carta.efeito);
 			Destroy(objeto.placeholder);
 			descarte.AdicionarCarta(eventData.pointerDrag);

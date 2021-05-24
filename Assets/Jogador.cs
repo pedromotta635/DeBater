@@ -14,13 +14,12 @@ public class Jogador
 	// A única instância do Jogador
 	public static readonly Jogador jogador = new Jogador();
 
-	private const int energiaInicial = 4;
+	private const int energiaInicial = 3;
 	public int energiaPorTurno = energiaInicial;
 	public int energia = energiaInicial;
 	public const int cartasPorTurno = 5;
 
 	// O nível de Contra-Argumento
-	[SerializeField]
 	private int _nivelContraArgumento = 0;
 	public int nivelContraArgumento
 	{
@@ -83,5 +82,6 @@ public class Jogador
 	public void NovoTurno()
 	{
 		energia = energiaPorTurno;
+		nivelContraArgumento = 0;
 	}
 }

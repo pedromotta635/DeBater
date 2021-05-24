@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Eventos;
 
 // Classe responsável por controlar o funcionamento de um debate
 public class ControladorDebate : MonoBehaviour
@@ -23,6 +24,9 @@ public class ControladorDebate : MonoBehaviour
 	private TextoContraArgumento textoContraArgumentoJogador;
 	[SerializeField]
 	private TextoContraArgumento textoContraArgumentoIA;
+	[SerializeField]
+	private TextoEnergia textoEnergia;
+
 	public GameObject popup;
 	public Button botaoTurno;
 
@@ -39,9 +43,9 @@ public class ControladorDebate : MonoBehaviour
 
 	void Start()
 	{
+		plateia.debateTerminou.AddListener(FimDeDebate);
 		ia.NovoEfeito();
 		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
-		//textoIA.GetComponent<Text>().text = ia.texto;
 		jogador.InicializarBaralho(pilha, cartaPrefab);
 		Utils.Embaralhar(pilha);
 		DarCartas();
@@ -50,6 +54,7 @@ public class ControladorDebate : MonoBehaviour
 	void Update()
 	{
 		textoContraArgumentoJogador.SetTexto(jogador.nivelContraArgumento);
+		textoEnergia.SetTexto(jogador.energia, jogador.energiaPorTurno);
 	}
 
 	private void EsvaziarDescarte()
@@ -81,55 +86,8 @@ public class ControladorDebate : MonoBehaviour
 			VirarCarta();
 		}
 	}
-	//*
-	public void DarCartas() => VirarCartas(Jogador.cartasPorTurno);  
-	/*/
-	public void DarCartas()
-	{
-		int c = pilha.Count;
-		if (c >= 4)
-		{
-			for (int _ = 0; _ < 4; _++)
-			{
-				pilha[0].transform.SetParent(mao.transform, false);
-				pilha.RemoveAt(0);
-			}
-		}
-		else if (c == 0)
-		{
-			foreach (GameObject carta in descarte.descarte)
-			{
-				pilha.Add(carta);
-			}
-			descarte.Esvaziar();
-			Utils.Embaralhar(pilha);
-			for (int _ = 0; _ < 4; _++)
-			{
-				pilha[0].transform.SetParent(mao.transform, false);
-				pilha.RemoveAt(0);
-			}
-		}
-		else
-		{
-			for (int _ = 0; _ < c; _++)
-			{
-				pilha[0].transform.SetParent(mao.transform, false);
-				pilha.RemoveAt(0);
-			}
-			foreach (GameObject carta in descarte.descarte)
-			{
-				pilha.Add(carta);
-			}
-			descarte.Esvaziar();
-			for (int _ = 0; _ < 4 - c; _++)
-			{
-				pilha[0].transform.SetParent(mao.transform, false);
-				pilha.RemoveAt(0);
-			}
-		}	
-	}
-	*/
-
+	public void DarCartas() => VirarCartas(Jogador.cartasPorTurno);
+	
 	public void AcabarTurno()
 	{
 		descarte.RetirarCartas();
@@ -145,14 +103,27 @@ public class ControladorDebate : MonoBehaviour
 		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
 	}
 
-	public void Vitoria()
+	private void FimDeDebate(ResultadoDebate res)
+	{
+		switch (res)
+		{
+			case ResultadoDebate.Vitoria:
+				Vitoria();
+				break;
+			case ResultadoDebate.Derrota:
+				Derrota();
+				break;
+		}
+	}
+
+	private void Vitoria()
 	{
 		popup.transform.GetChild(0).GetComponent<Text>().text = "Vitória!";
 		popup.SetActive(true);
 		botaoTurno.interactable = false;
 	}
 
-	public void Derrota()
+	private void Derrota()
 	{
 		popup.transform.GetChild(0).GetComponent<Text>().text = "Derrota";
 		popup.SetActive(true);

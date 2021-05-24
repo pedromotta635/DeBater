@@ -71,7 +71,7 @@ public class ArgumentoBasico : Argumento
 public class ContraArgumentoBasico : ContraArgumento
 {
 	public override string nome { get; set; } = "Réplica";
-	public override string descricao { get; set; } = "Contra-argumenta por [e] de apoio.";
+	public override string descricao { get; set; } = "Contra-\u200bargumenta por [e] de apoio.";
 	public override string imagem { get; }
 	public override int custo { get; set; } = 1;
 	private int efeito = 10;

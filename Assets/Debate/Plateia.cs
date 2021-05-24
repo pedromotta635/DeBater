@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Eventos;
 
 public class Plateia : MonoBehaviour
 {
+	public EventoResultadoDebate debateTerminou = new EventoResultadoDebate();
+	[SerializeField]
+	private Text textoApoio;
+	[SerializeField]
 	private int _apoio = 0;
 	public int apoio
 	{
@@ -14,13 +19,11 @@ public class Plateia : MonoBehaviour
 			if (value > 100) _apoio = 100;
 			else if (value < -100) _apoio = -100;
 			else _apoio = value;
+			_apoio = value >  100 ? 100
+			       : value < -100 ? -100
+				   : value;
+			textoApoio.text = _apoio.ToString();
 		}
-	}
-	private ControladorDebate controlador;
-
-	void Start()
-	{
-		controlador = transform.parent.GetComponent<ControladorDebate>();
 	}
 
 	public void AlterarApoioPor(int valor)
@@ -29,11 +32,11 @@ public class Plateia : MonoBehaviour
 		transform.Find("Apoio").GetComponent<Text>().text = apoio.ToString();
 		if (apoio >= 100)
 		{
-			controlador.Vitoria();
+			debateTerminou.Invoke(ResultadoDebate.Vitoria);
 		}
 		else if (apoio <= -100)
 		{
-			controlador.Derrota();
+			debateTerminou.Invoke(ResultadoDebate.Derrota);
 		}
 	}
 }
