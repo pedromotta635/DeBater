@@ -78,7 +78,7 @@ public class ContraArgumentoBasico : ContraArgumento
 	
 	public override void AplicarEfeito(Plateia plateia)
 	{
-		Jogador.jogador.nivelContraArgumento += efeito;
+		Jogador.jogador.nivelContraArgumento += efeito; // nivelContraArgumento.set(nivelContraArgumento + efeito)
 	}
 
 	public override string Formatar()

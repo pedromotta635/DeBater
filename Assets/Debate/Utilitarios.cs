@@ -25,7 +25,8 @@ public static class Utils
 	public static void Embaralhar<T>(IList<T> list)
 	{
 		int n = list.Count;
-		while (n > 1) {
+		while (n > 1)
+		{
 			n--;
 			int k = rng.Next(n + 1);
 			T value = list[k];

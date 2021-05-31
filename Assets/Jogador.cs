@@ -23,10 +23,9 @@ public class Jogador
 	private int _nivelContraArgumento = 0;
 	public int nivelContraArgumento
 	{
-		get => _nivelContraArgumento;
+		get => _nivelContraArgumento; // get { return _nivelContraArgumento; }
 		set { _nivelContraArgumento = value < 0 ? 0 : value; }
 	}
-
 	// Lista de cartas para serem usadas no debate
 	public List<GameObject> baralho = new List<GameObject>();
 
