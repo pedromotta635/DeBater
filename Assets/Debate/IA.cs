@@ -10,21 +10,36 @@ public interface IEfeito
 
 	Carta.Tipo tipo { get; }
 
+	void AtualizarEfeito(Plateia plateia);
+
 	void Aplicar(Plateia plateia);
 }
 
 public class EfeitoArgumentar : IEfeito
 {
+	private Ia ia;
 	public string texto { get; }
 
 	public Carta.Tipo tipo { get; } = Carta.Tipo.Argumento;
 
-	private int efeito;
-
-	public EfeitoArgumentar(int efeito)
+	private readonly int efeitoInicial;
+	private int _efeito;
+	private int efeito
 	{
-		this.efeito = efeito;
+		get => _efeito;
+		set { _efeito = value > 0 ? value : 0;}
+	}
+
+	public EfeitoArgumentar( Ia ia, int efeito)
+	{
+		this.ia = ia;
+		this.efeitoInicial = this.efeito = efeito;
 		this.texto = efeito.ToString();
+	}
+
+	public void AtualizarEfeito(Plateia plateia)
+	{
+		efeito = efeitoInicial + ia.autoconfianca;
 	}
 
 	public void Aplicar(Plateia plateia)
@@ -39,14 +54,20 @@ public class EfeitoContraArgumentar : IEfeito
 
 	public Carta.Tipo tipo { get; } = Carta.Tipo.ContraArgumento;
 
+	private readonly int efeitoInicial;
 	private int efeito;
 	private Ia ia;
 
 	public EfeitoContraArgumentar(Ia ia, int efeito)
 	{
 		this.ia = ia;
-		this.efeito = efeito;
+		this.efeitoInicial = this.efeito = efeito;
 		this.texto = efeito.ToString();
+	}
+
+	public void AtualizarEfeito(Plateia plateia)
+	{
+		efeito = efeitoInicial + ia.autoconfianca;
 	}
 
 	public void Aplicar(Plateia plateia)
@@ -60,6 +81,8 @@ public abstract class Ia
 	public virtual string texto { get; set; }
 
 	public virtual int nivelContraArgumento { get; set; } = 0;
+
+	public virtual int autoconfianca { get; set; } = 0;
 
 	protected abstract IEfeito[] efeitos { get; set; }
 
@@ -85,6 +108,8 @@ public abstract class Ia
 		return efeitos[i];
 	}
 
+	public virtual void AtualizarEfeito(Plateia plateia) => efeitoAtual?.AtualizarEfeito(plateia);
+
 	public abstract void Acao(Plateia plateia);
 
 
@@ -92,11 +117,16 @@ public abstract class Ia
 
 public class IaBasica : Ia
 {
-	protected override IEfeito[] efeitos { get; set; } = {
-		new EfeitoArgumentar(30),
-		new EfeitoArgumentar(40),
-		new EfeitoArgumentar(20)
-	};
+	protected override IEfeito[] efeitos { get; set; }
+
+	public IaBasica()
+	{
+		efeitos = new IEfeito[] {
+			new EfeitoArgumentar(this, 30),
+			new EfeitoArgumentar(this, 40),
+			new EfeitoArgumentar(this, 20)
+		};
+	}
 
 	public override void Acao(Plateia plateia)
 	{

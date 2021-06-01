@@ -26,6 +26,9 @@ public class Jogador
 		get => _nivelContraArgumento; // get { return _nivelContraArgumento; }
 		set { _nivelContraArgumento = value < 0 ? 0 : value; }
 	}
+
+	// O nível de auto-confiança
+	public int autoconfianca { get; set; } = 0;
 	// Lista de cartas para serem usadas no debate
 	public List<GameObject> baralho = new List<GameObject>();
 
@@ -35,11 +38,10 @@ public class Jogador
 	private Jogador()
 	{
 		cartas = new List<Carta> {
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
+			new ContraArgumentoBasico(),
+			new ContraArgumentoBasico(),
+			new ContraArgumentoBasico(),
+			new ContraArgumentoBasico(),
 			new ContraArgumentoBasico(),
 			new ContraArgumentoBasico()
 		};

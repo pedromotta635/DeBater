@@ -26,13 +26,17 @@ public class ControladorDebate : MonoBehaviour
 	private TextoContraArgumento textoContraArgumentoIA;
 	[SerializeField]
 	private TextoEnergia textoEnergia;
+	[SerializeField]
+	private TextoAutoconfianca textoAutoconfiancaJogador;
+	[SerializeField]
+	private TextoAutoconfianca textoAutoconfiancaIA;
 
 	public GameObject popup;
 	public Button botaoTurno;
 
 	[SerializeField]
 	private Plateia plateia;
-	private Ia ia = new IaBasica();
+	public Ia ia = new IaBasica();
 
 	private Jogador jogador = Jogador.jogador;
 
@@ -53,8 +57,16 @@ public class ControladorDebate : MonoBehaviour
 
 	void Update()
 	{
+		foreach (Transform cartaObjeto in mao.transform)
+		{
+			cartaObjeto.GetComponent<Arrastavel>()?.carta.AtualizarEfeito(plateia);
+
+		}
+		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
 		textoContraArgumentoJogador.SetTexto(jogador.nivelContraArgumento);
 		textoEnergia.SetTexto(jogador.energia, jogador.energiaPorTurno);
+		textoAutoconfiancaIA.SetTexto(ia.autoconfianca);
+		textoAutoconfiancaJogador.SetTexto(jogador.autoconfianca);
 	}
 
 	private void EsvaziarDescarte()
@@ -100,7 +112,6 @@ public class ControladorDebate : MonoBehaviour
 	{
 		ia.Acao(plateia);
 		ia.NovoEfeito();
-		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
 	}
 
 	private void FimDeDebate(ResultadoDebate res)

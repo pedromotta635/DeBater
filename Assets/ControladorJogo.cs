@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControladorJogo
 {
-	public static ControladorJogo instancia = new ControladorJogo();
+	public static readonly ControladorJogo instancia = new ControladorJogo();
 
 	private ControladorJogo()
 	{}

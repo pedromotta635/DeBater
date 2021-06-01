@@ -23,6 +23,8 @@ abstract public class Carta
 	// Função que aplica a formatação ao texto
 	public abstract string Formatar();
 
+	public abstract void AtualizarEfeito(Plateia plateia);
+
 	// Função chamada quando a carta é jogada
 	public abstract void AplicarEfeito(Plateia plateia);
 }
@@ -52,14 +54,25 @@ abstract public class Falacia : Carta
 public class ArgumentoBasico : Argumento
 {
 	public override string nome { get; set; } = "Argumentar";
-	public override string descricao { get; set; } = "Convence a audiência em [e].";
+	private string _descricao = "Convence a audiência em [e].";
+	public override string descricao
+	{
+		get => _descricao.Replace("[e]", efeito.ToString());
+		set { _descricao = value; }
+	}
 	public override string imagem { get; }
 	public override int custo { get; set; } = 1;
+	private const int efeitoInicial = 20;
 	private int efeito = 20;
 
 	public override void AplicarEfeito(Plateia plateia)
 	{
 		plateia.AlterarApoioPor(efeito);
+	}
+
+	public override void AtualizarEfeito(Plateia plateia)
+	{
+		efeito = efeitoInicial + jogador.autoconfianca;
 	}
 
 	public override string Formatar()
@@ -71,14 +84,25 @@ public class ArgumentoBasico : Argumento
 public class ContraArgumentoBasico : ContraArgumento
 {
 	public override string nome { get; set; } = "Réplica";
-	public override string descricao { get; set; } = "Contra-\u200bargumenta por [e] de apoio.";
+	private string _descricao = "Contra - argumenta por [e].";
+	public override string descricao
+	{
+		get => _descricao.Replace("[e]", efeito.ToString());
+		set { _descricao = value; }
+	}
 	public override string imagem { get; }
 	public override int custo { get; set; } = 1;
-	private int efeito = 10;
+	private const int efeitoInicial = 10;
+	private int efeito = efeitoInicial;
 	
 	public override void AplicarEfeito(Plateia plateia)
 	{
 		Jogador.jogador.nivelContraArgumento += efeito; // nivelContraArgumento.set(nivelContraArgumento + efeito)
+	}
+
+	public override void AtualizarEfeito(Plateia plateia)
+	{
+		efeito = efeitoInicial + Jogador.jogador.autoconfianca;
 	}
 
 	public override string Formatar()

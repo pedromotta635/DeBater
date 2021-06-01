@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Eventos;
+using Controlador = ControladorDebate;
 
 public class Plateia : MonoBehaviour
 {
+	private Jogador jogador = Jogador.jogador;
 	public EventoResultadoDebate debateTerminou = new EventoResultadoDebate();
 	[SerializeField]
 	private Text textoApoio;
@@ -16,16 +18,71 @@ public class Plateia : MonoBehaviour
 		get => _apoio;
 		set
 		{
-			if (value > 100) _apoio = 100;
-			else if (value < -100) _apoio = -100;
-			else _apoio = value;
 			_apoio = value >  100 ? 100
 			       : value < -100 ? -100
 				   : value;
 			textoApoio.text = _apoio.ToString();
+			if      (apoio >=  100) debateTerminou.Invoke(ResultadoDebate.Vitoria);
+			else if (apoio <= -100) debateTerminou.Invoke(ResultadoDebate.Derrota);
+		}
+	}
+	//*
+	public void AlterarApoioPor(int valor)
+	{
+		int v = valor;
+		if (valor > 0)
+		{
+			int nca = Controlador.instancia.ia.nivelContraArgumento;
+			if (nca > 0)
+			{
+				v -= nca;
+				if (v > 0)
+				{
+					Controlador.instancia.ia.nivelContraArgumento = 0;
+					apoio += v;
+				}
+				else
+				{
+					nca -= valor;
+					int varAutoconfianca = 1 + nca / 2;
+					jogador.autoconfianca -= varAutoconfianca;
+					Controlador.instancia.ia.autoconfianca += varAutoconfianca;
+					Controlador.instancia.ia.nivelContraArgumento = nca;
+				}
+			}
+			else
+			{
+				apoio += v;
+			}
+		}
+		else if (valor < 0)
+		{
+			int nca = jogador.nivelContraArgumento;
+			if (nca > 0)
+			{
+				v -= nca;
+				if (v > 0)
+				{
+					jogador.nivelContraArgumento = 0;
+					apoio += v;
+				}
+				else
+				{
+					nca -= -valor;
+					int varAutoconfianca = 1 + nca / 2;
+					Controlador.instancia.ia.autoconfianca -= varAutoconfianca;
+					jogador.autoconfianca += varAutoconfianca;
+					jogador.nivelContraArgumento = nca;
+				}
+			}
+			else
+			{
+				apoio += v;
+			}
 		}
 	}
 
+	/*/
 	public void AlterarApoioPor(int valor)
 	{
 		apoio += valor;
@@ -39,4 +96,5 @@ public class Plateia : MonoBehaviour
 			debateTerminou.Invoke(ResultadoDebate.Derrota);
 		}
 	}
+	//*/
 }

@@ -9,6 +9,12 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	public Transform destino;
 	public GameObject placeholder;
 	public Carta carta;
+	private CanvasGroup cg;
+
+	void Start()
+	{
+		cg = GetComponent<CanvasGroup>();
+	}
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
@@ -23,7 +29,7 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
 		destino = this.transform.parent;
 		this.transform.SetParent(this.transform.parent.parent);
-		GetComponent<CanvasGroup>().blocksRaycasts = false;
+		cg.blocksRaycasts = false;
 	}
 
 	public void OnDrag(PointerEventData eventData)
@@ -36,7 +42,7 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	{
 		this.transform.SetParent(destino);
 		this.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
-		GetComponent<CanvasGroup>().blocksRaycasts = true;
+		cg.blocksRaycasts = true;
 		Destroy(placeholder);
 	}
 }
