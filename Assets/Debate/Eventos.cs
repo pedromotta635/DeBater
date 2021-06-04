@@ -7,9 +7,13 @@ namespace Eventos
 {
 	public enum ResultadoDebate { Derrota, Vitoria }
 	[System.Serializable]
-	public class EventoResultadoDebate : UnityEvent<ResultadoDebate>
-	{}
+	public class EventoResultadoDebate : UnityEvent<ResultadoDebate> {}
 	[System.Serializable]
-	public class EventoCarta : UnityEvent<Carta>
-	{}
+	public class EventoCarta : UnityEvent<Carta> {}
+	[System.Serializable]
+	public class EventoInt : UnityEvent<int> {}
+	[System.Serializable]
+	public class EventoString : UnityEvent<string> {}
+	[System.Serializable]
+	public class EventoEfeito : UnityEvent<IEfeito> {}
 }

@@ -5,9 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 using Eventos;
 
+public enum DonoTexto { Jogador, IA }
+
 // Classe responsável por controlar o funcionamento de um debate
 public class ControladorDebate : MonoBehaviour
 {
+
 	public static ControladorDebate instancia;
 
 	public GameObject cartaPrefab;
@@ -48,6 +51,14 @@ public class ControladorDebate : MonoBehaviour
 	void Start()
 	{
 		plateia.debateTerminou.AddListener(FimDeDebate);
+
+		textoContraArgumentoJogador.dono = DonoTexto.Jogador;
+		textoContraArgumentoIA.dono      = DonoTexto.IA;
+
+		textoAutoconfiancaJogador.dono  = DonoTexto.Jogador;
+		textoAutoconfiancaIA.dono       = DonoTexto.IA;
+
+		textoEnergia.SetTexto(jogador.energia, jogador.energiaPorTurno);
 		ia.NovoEfeito();
 		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
 		jogador.InicializarBaralho(pilha, cartaPrefab);
@@ -63,10 +74,10 @@ public class ControladorDebate : MonoBehaviour
 
 		}
 		textoIA.SetTexto(ia.efeitoAtual.texto, ia.efeitoAtual.tipo);
-		textoContraArgumentoJogador.SetTexto(jogador.nivelContraArgumento);
-		textoEnergia.SetTexto(jogador.energia, jogador.energiaPorTurno);
-		textoAutoconfiancaIA.SetTexto(ia.autoconfianca);
-		textoAutoconfiancaJogador.SetTexto(jogador.autoconfianca);
+		//textoContraArgumentoJogador.SetTexto(jogador.nivelContraArgumento);
+		//textoEnergia.SetTexto(jogador.energia, jogador.energiaPorTurno);
+		//textoAutoconfiancaIA.SetTexto(ia.autoconfianca);
+		//textoAutoconfiancaJogador.SetTexto(jogador.autoconfianca);
 	}
 
 	private void EsvaziarDescarte()

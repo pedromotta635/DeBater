@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Eventos;
 
 public interface IEfeito
 {
@@ -27,7 +27,8 @@ public class EfeitoArgumentar : IEfeito
 	private int efeito
 	{
 		get => _efeito;
-		set { _efeito = value > 0 ? value : 0;}
+		set
+		{ _efeito = value > 0 ? value : 0;}
 	}
 
 	public EfeitoArgumentar( Ia ia, int efeito)
@@ -40,6 +41,7 @@ public class EfeitoArgumentar : IEfeito
 	public void AtualizarEfeito(Plateia plateia)
 	{
 		efeito = efeitoInicial + ia.autoconfianca;
+		ia.efeitoMudou.Invoke(this);
 	}
 
 	public void Aplicar(Plateia plateia)
@@ -68,6 +70,7 @@ public class EfeitoContraArgumentar : IEfeito
 	public void AtualizarEfeito(Plateia plateia)
 	{
 		efeito = efeitoInicial + ia.autoconfianca;
+		ia.efeitoMudou.Invoke(this);
 	}
 
 	public void Aplicar(Plateia plateia)
@@ -77,12 +80,34 @@ public class EfeitoContraArgumentar : IEfeito
 }
 
 public abstract class Ia
-{
+{	
+	public EventoEfeito efeitoMudou = new EventoEfeito();
+	public EventoInt contraArgumentoMudou = new EventoInt();
+	public EventoInt autoconfiancaMudou = new EventoInt();
+
 	public virtual string texto { get; set; }
 
-	public virtual int nivelContraArgumento { get; set; } = 0;
+	private int _nivelContraArgumento = 0;
+	public virtual int nivelContraArgumento
+	{
+		get => _nivelContraArgumento;
+		set
+		{
+			_nivelContraArgumento = value > 0 ? value : 0;
+			contraArgumentoMudou.Invoke(_nivelContraArgumento);
+		}
+	}
 
-	public virtual int autoconfianca { get; set; } = 0;
+	private int _autoconfianca = 0;
+	public virtual int autoconfianca
+	{
+		get => _autoconfianca;
+		set
+		{
+			_autoconfianca = value;
+			autoconfiancaMudou.Invoke(_autoconfianca);
+		}
+	}
 
 	protected abstract IEfeito[] efeitos { get; set; }
 
@@ -97,7 +122,12 @@ public abstract class Ia
 			}
 			return _efeitoAtual;
 		}
-		private set { _efeitoAtual = value; }
+		private set
+		{
+			_efeitoAtual = value;
+			efeitoMudou.Invoke(_efeitoAtual);
+
+		}
 	}
 
 	public virtual IEfeito NovoEfeito()
@@ -105,7 +135,7 @@ public abstract class Ia
 		int i = Utils.rng.Next(efeitos.Length);
 		texto = efeitos[i].texto;
 		efeitoAtual = efeitos[i];
-		return efeitos[i];
+		return efeitoAtual;
 	}
 
 	public virtual void AtualizarEfeito(Plateia plateia) => efeitoAtual?.AtualizarEfeito(plateia);
