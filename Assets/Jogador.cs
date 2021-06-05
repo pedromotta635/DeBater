@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Eventos;
+using Cartas;
 
 /*
  * Classe Responsável por:
@@ -67,10 +68,11 @@ public class Jogador
 	private Jogador()
 	{
 		cartas = new List<Carta> {
-			new ContraArgumentoBasico(),
-			new ContraArgumentoBasico(),
-			new ContraArgumentoBasico(),
-			new ContraArgumentoBasico(),
+			new ArgumentoBasico(),
+			new ArgumentoBasico(),
+			new ArgumentoBasico(),
+			new ArgumentoBasico(),
+			new ArgumentoBasico(),
 			new ContraArgumentoBasico(),
 			new ContraArgumentoBasico()
 		};

@@ -2,11 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cartas;
+using IA;
+using ctrl = ControladorDebate;
 
 public class TextoIA : MonoBehaviour
 {
 	[SerializeField]
 	private Text texto;
+
+	void Start()
+	{
+		ctrl.instancia.ia.efeitoMudou.AddListener(SetTexto);
+	}
+
+	private void SetTexto(IEfeito efeito) => SetTexto(efeito.texto, efeito.tipo);
 
 	public void SetTexto(string str, Carta.Tipo tipo)
 	{

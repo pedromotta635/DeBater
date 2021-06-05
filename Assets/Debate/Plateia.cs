@@ -7,6 +7,7 @@ using Controlador = ControladorDebate;
 
 public class Plateia : MonoBehaviour
 {
+	public static Plateia instancia;
 	private Jogador jogador = Jogador.jogador;
 	public EventoResultadoDebate debateTerminou = new EventoResultadoDebate();
 	[SerializeField]
@@ -25,6 +26,11 @@ public class Plateia : MonoBehaviour
 			if      (apoio >=  100) debateTerminou.Invoke(ResultadoDebate.Vitoria);
 			else if (apoio <= -100) debateTerminou.Invoke(ResultadoDebate.Derrota);
 		}
+	}
+
+	void Awake()
+	{
+		instancia = this; 
 	}
 	//*
 	public void AlterarApoioPor(int valor)
