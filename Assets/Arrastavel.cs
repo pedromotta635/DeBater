@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Cartas;
 using ctrl = ControladorDebate;
+using IA;
 
 public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -19,14 +20,14 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 	void Start()
 	{
 		cg = GetComponent<CanvasGroup>();
-		textoDescricao = transform.GetChild(2).transform;
+		textoDescricao = transform.GetChild(2).transform.GetComponent<Text>();
 		ctrl.instancia.ia.efeitoMudou.AddListener(AtualizarEfeito);
 	}
 
 	private void AtualizarEfeito(IEfeito _)
 	{
-		carta.AtualizarEfeito(plateia);
-		
+		carta.AtualizarEfeito(Plateia.instancia);
+
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
