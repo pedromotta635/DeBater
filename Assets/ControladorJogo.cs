@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using IA;
 
-public class ControladorJogo
+public class ControladorJogo : MonoBehaviour
 {
-	public static readonly ControladorJogo instancia = new ControladorJogo();
-
-	private ControladorJogo()
-	{}
+	public static ControladorJogo instancia;
 
 	private Ia[] iasDisponiveis = {
 		new IaBasica(),
 		new IaBasica()
 	};
 
+	[SerializeField]
 	private string _seed;
 	public string seed
 	{
@@ -33,6 +32,16 @@ public class ControladorJogo
 			return _seed;
 		}
 		set { _seed = value; }
+	}
+
+	void Awake()
+	{
+		instancia = this;
+	}
+
+	public void BotaoEnciclopedia()
+	{
+		SceneManager.LoadScene("Enciclopedia", LoadSceneMode.Single);
 	}
 
 	public void AplicarSeed()
