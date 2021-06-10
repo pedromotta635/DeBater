@@ -7,7 +7,7 @@ using Cartas;
 using ctrl = ControladorDebate;
 using IA;
 
-public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 	public Transform destino;
 	public GameObject placeholder;
@@ -16,9 +16,27 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
 	private Text textoDescricao;
 
+	public string titulo { get => carta.nome; }
+	public string descricao
+	{
+		get => $"Isso é uma <i>carta</i>. Ela deve ser arrastada até o meio da tela, onde soltá-la causará ela a sair de sua mão e ir até a <i>pilha de descarte</i>. Só pode ser jogada caso você tenha <i>energia</i> o suficiente para cobrir o <i>custo</i>.\nCusto: {carta.custo}.\nDescrição: {carta.descricao}";
+	}
+
+	[SerializeField]
+	private GameObject prefabTooltip;
+	private GameObject tooltip;
+
+	private bool mouseEmCima = false;
+
+	void Awake()
+	{
+		tooltip = Instantiate(prefabTooltip, transform.parent.parent);
+		tooltip.SetActive(false);
+	}
 
 	void Start()
 	{
+		
 		cg = GetComponent<CanvasGroup>();
 		textoDescricao = transform.GetChild(2).transform.GetComponent<Text>();
 		ctrl.instancia.ia.efeitoMudou.AddListener(AtualizarEfeito);
@@ -59,4 +77,29 @@ public class Arrastavel : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 		cg.blocksRaycasts = true;
 		Destroy(placeholder);
 	}
+
+	private IEnumerator MostrarTooltip()
+	{
+		yield return new WaitForSeconds(1.0f);
+		if (mouseEmCima);
+	}
+
+	void OnMouseEnter()
+	{
+		mouseEmCima = true;
+		tooltip.SetActive(true);
+		//StartCoroutine(MostrarTooltip());
+	}
+
+	void OnMouseOver()
+	{
+		tooltip.SetActive(true);
+	}
+
+	void OnMouseExit()
+	{
+		mouseEmCima = false;
+		tooltip.SetActive(false);
+	}
+
 }

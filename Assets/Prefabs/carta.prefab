@@ -329,6 +329,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destino: {fileID: 0}
   placeholder: {fileID: 0}
+  prefabTooltip: {fileID: 3585338120064531044, guid: 17c6e76da2f658d4abf35f79a0253e43,
+    type: 3}
 --- !u!114 &-133643199144605070
 MonoBehaviour:
   m_ObjectHideFlags: 0
