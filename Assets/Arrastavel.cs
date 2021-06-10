@@ -30,13 +30,13 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 
 	void Awake()
 	{
-		tooltip = Instantiate(prefabTooltip, transform.parent.parent);
-		tooltip.SetActive(false);
+		
 	}
 
 	void Start()
 	{
-		
+		tooltip = Instantiate(prefabTooltip, transform.parent.parent);
+		tooltip.SetActive(false);
 		cg = GetComponent<CanvasGroup>();
 		textoDescricao = transform.GetChild(2).transform.GetComponent<Text>();
 		ctrl.instancia.ia.efeitoMudou.AddListener(AtualizarEfeito);
