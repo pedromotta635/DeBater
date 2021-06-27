@@ -5,7 +5,6 @@ using System;
 
 namespace Cartas
 {
-
 	// Classe base de todas as cartas
 	abstract public class Carta
 	{
@@ -20,6 +19,8 @@ namespace Cartas
 		public abstract string imagem { get; }
 
 		public Color cor = Utils.amarelo;
+
+
 
 		// Função que aplica a formatação ao texto
 		public abstract string Formatar();

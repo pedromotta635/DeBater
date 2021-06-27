@@ -31,7 +31,7 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 	public string titulo { get => carta.nome; }
 	public string descricao
 	{
-		get => $"Isso é uma <i>carta</i>. Ela deve ser arrastada até o meio da tela, onde soltá-la causará ela a sair de sua mão e ir até a <i>pilha de descarte</i>. Só pode ser jogada caso você tenha <i>energia</i> o suficiente para cobrir o <i>custo</i>.\nCusto: {carta.custo}.\nDescrição: {carta.descricao}";
+		get => $"Isso é uma <b>carta</b>. Ela deve ser arrastada até o meio da tela, onde soltá-la causará ela a sair de sua mão e ir até a <b>pilha de descarte</b>. Só pode ser jogada caso você tenha <b>tempo</b> o suficiente para cobrir o <b>custo</b>.\nCusto: {carta.custo}.\nDescrição: {carta.descricao}";
 	}
 
 	[SerializeField]
@@ -41,16 +41,24 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 
 	void Start()
 	{
+		tooltip.dono = this;
 		tooltip.SetActive(false);
 		cg = GetComponent<CanvasGroup>();
 		le = GetComponent<LayoutElement>();
 		ctrl.instancia.ia.efeitoMudou.AddListener(AtualizarEfeito);
 	}
 
+	void Update()
+	{
+		textoNome.text = carta.nome;
+		textoDescricao.text = carta.descricao;
+		textoCusto.text = carta.custo.ToString();
+		textoTipo.text = carta.tipo.ComoString();
+	}
+
 	private void AtualizarEfeito(IEfeito _)
 	{
 		carta.AtualizarEfeito(Plateia.instancia);
-
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
@@ -59,7 +67,7 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 		placeholder = new GameObject();
 		placeholder.transform.SetParent(this.transform.parent);
 		var le = placeholder.AddComponent<LayoutElement>();
-		le.preferredWidth = le.preferredWidth;
+		le.preferredWidth = this.le.preferredWidth;
 		le.flexibleWidth = 0;
 		le.flexibleHeight = 0;
 
@@ -84,12 +92,6 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 		Destroy(placeholder);
 	}
 
-	private IEnumerator MostrarTooltip()
-	{
-		yield return new WaitForSeconds(0.5f);
-		if (mouseEmCima) tooltip.SetActive(true);
-	}
-
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		mouseEmCima = true;
@@ -99,7 +101,18 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		mouseEmCima = false;
-		tooltip.SetActive(false);
+		StartCoroutine(EsconderTooltip());
 	}
 
+	private IEnumerator MostrarTooltip()
+	{
+		yield return new WaitForSeconds(0.2f);
+		if (mouseEmCima) tooltip.SetActive(true);
+	}
+
+	private IEnumerator EsconderTooltip()
+	{
+		yield return new WaitForSeconds(0.2f);
+		if (!mouseEmCima) tooltip.SetActive(false);
+	}
 }

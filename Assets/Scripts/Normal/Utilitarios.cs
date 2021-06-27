@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cartas.Carta;
 
 public static class Utils
 {
@@ -34,4 +35,22 @@ public static class Utils
 			list[n] = value;
 		}
 	}
+
+	#region Extensoes
+
+	public static string ComoString(this Tipo t)
+	{
+		switch(t)
+		{
+			case Tipo.Argumento:
+				return "Argumento";
+			case Tipo.ContraArgumento:
+				return "Contra-Argumento";
+			case Tipo.Falacia:
+				return "Falacia";
+			default:
+				return "";
+		}
+	}
+	#endregion
 }

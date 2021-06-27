@@ -12,13 +12,22 @@ public class ControladorTooltip : MonoBehaviour
 
 	public ITemTooltip dono;
 
-	public void SetTexto()
+	void Update()
+	{
+		SetTexto();
+	}
+
+	public void SetActive(bool value)
+	{
+		gameObject.SetActive(value);
+		SetTexto();
+	}
+
+	private void SetTexto()
 	{
 		titulo.text = dono.titulo;
 		descricao.text = dono.descricao;
 	}
-
-	public void SetActive(bool value) => gameObject.SetActive(value);
 }
 
 public interface ITemTooltip
