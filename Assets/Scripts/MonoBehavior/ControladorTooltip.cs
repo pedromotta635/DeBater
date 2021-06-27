@@ -17,6 +17,8 @@ public class ControladorTooltip : MonoBehaviour
 		titulo.text = dono.titulo;
 		descricao.text = dono.descricao;
 	}
+
+	public void SetActive(bool value) => gameObject.SetActive(value);
 }
 
 public interface ITemTooltip

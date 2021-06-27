@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using Cartas;
-using ctrl = ControladorDebate;
 using IA;
 
-public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHandler, IEndDragHandler
+using ctrl = ControladorDebate;
+
+
+public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHandler, IEndDragHandler,
+                          IPointerEnterHandler, IPointerExitHandler
 {
 	public Transform destino;
 	public GameObject placeholder;
 	public Carta carta;
 	private CanvasGroup cg;
+	private LayoutElement le;
 
-	private Text textoDescricao;
+	[SerializeField]
+	private TextMeshProUGUI textoNome;
+	[SerializeField]
+	private TextMeshProUGUI textoCusto;
+	[SerializeField]
+	private TextMeshProUGUI textoTipo;
+	[SerializeField]
+	private TextMeshProUGUI textoDescricao;
 
 	public string titulo { get => carta.nome; }
 	public string descricao
@@ -23,22 +35,15 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 	}
 
 	[SerializeField]
-	private GameObject prefabTooltip;
-	private GameObject tooltip;
+	private ControladorTooltip tooltip;
 
 	private bool mouseEmCima = false;
 
-	void Awake()
-	{
-		
-	}
-
 	void Start()
 	{
-		tooltip = Instantiate(prefabTooltip, transform.parent.parent);
 		tooltip.SetActive(false);
 		cg = GetComponent<CanvasGroup>();
-		textoDescricao = transform.GetChild(2).transform.GetComponent<Text>();
+		le = GetComponent<LayoutElement>();
 		ctrl.instancia.ia.efeitoMudou.AddListener(AtualizarEfeito);
 	}
 
@@ -50,10 +55,11 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
+		tooltip.SetActive(false);
 		placeholder = new GameObject();
 		placeholder.transform.SetParent(this.transform.parent);
 		var le = placeholder.AddComponent<LayoutElement>();
-		le.preferredWidth = GetComponent<LayoutElement>().preferredWidth;
+		le.preferredWidth = le.preferredWidth;
 		le.flexibleWidth = 0;
 		le.flexibleHeight = 0;
 
@@ -80,23 +86,17 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 
 	private IEnumerator MostrarTooltip()
 	{
-		yield return new WaitForSeconds(1.0f);
-		if (mouseEmCima);
+		yield return new WaitForSeconds(0.5f);
+		if (mouseEmCima) tooltip.SetActive(true);
 	}
 
-	void OnMouseEnter()
+	public void OnPointerEnter(PointerEventData eventData)
 	{
 		mouseEmCima = true;
-		tooltip.SetActive(true);
-		//StartCoroutine(MostrarTooltip());
+		StartCoroutine(MostrarTooltip());
 	}
 
-	void OnMouseOver()
-	{
-		tooltip.SetActive(true);
-	}
-
-	void OnMouseExit()
+	public void OnPointerExit(PointerEventData eventData)
 	{
 		mouseEmCima = false;
 		tooltip.SetActive(false);

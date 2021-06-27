@@ -95,10 +95,7 @@ public class Jogador
 		GameObject cartaObjeto = GameObject.Instantiate(prefab);
 		baralho.Add(cartaObjeto);
 		cartaObjeto.GetComponent<CanvasRenderer>().SetColor(cartaInfo.cor);
-		cartaObjeto.transform.Find("Nome").GetComponent<Text>().text = cartaInfo.nome;
-		cartaObjeto.transform.Find("Descricao").GetComponent<Text>().text = cartaInfo.Formatar();
 		cartaObjeto.GetComponent<Arrastavel>().carta = cartaInfo;
-		cartaObjeto.transform.Find("Custo").GetComponent<Text>().text = cartaInfo.custo.ToString();
 	}
 
 	public bool ValidarCarta(Carta carta)
