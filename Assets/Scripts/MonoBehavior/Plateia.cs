@@ -20,7 +20,7 @@ public class Plateia : MonoBehaviour
 		get => _apoio;
 		set
 		{
-			_apoio = Math.Clamp(value, -100, 100);
+			_apoio = Mathf.Clamp(value, -100, 100);
 			textoApoio.text = _apoio.ToString();
 			if      (_apoio ==  100) debateTerminou.Invoke(ResultadoDebate.Vitoria);
 			else if (_apoio == -100) debateTerminou.Invoke(ResultadoDebate.Derrota);
