@@ -32,7 +32,8 @@ public class Plateia : MonoBehaviour
 	{
 		instancia = this; 
 	}
-	//*
+
+	/*
 	public void AlterarApoioPor(int valor)
 	{
 		int v = valor;
@@ -92,15 +93,7 @@ public class Plateia : MonoBehaviour
 	public void AlterarApoioPor(int valor)
 	{
 		apoio += valor;
-		transform.Find("Apoio").GetComponent<Text>().text = apoio.ToString();
-		if (apoio >= 100)
-		{
-			debateTerminou.Invoke(ResultadoDebate.Vitoria);
-		}
-		else if (apoio <= -100)
-		{
-			debateTerminou.Invoke(ResultadoDebate.Derrota);
-		}
+		textoApoio.text = apoio.ToString();
 	}
 	//*/
 }

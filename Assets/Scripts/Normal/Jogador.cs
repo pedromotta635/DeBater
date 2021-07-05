@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Eventos;
 using Cartas;
+using Buffs;
+
+public interface IDebatedor
+{}
 
 /*
  * Classe Responsável por:
@@ -11,14 +15,10 @@ using Cartas;
  *   Armazenar o estado do jogador no debate
  *   Realizar as ações do jogador no debate
  */
-public class Jogador
+public class Jogador : IDebatedor
 {
 	// A única instância do Jogador
 	public static readonly Jogador jogador = new Jogador();
-
-	public EventoInt energiaMudou = new EventoInt();
-	public EventoInt contraArgumentoMudou = new EventoInt();
-	public EventoInt autoconfiancaMudou = new EventoInt();
 
 	private const int energiaInicial = 3;
 	public int energiaPorTurno = energiaInicial;
@@ -29,36 +29,15 @@ public class Jogador
 		set
 		{
 			_energia = value > 0 ? value : 0;
-			energiaMudou.Invoke(_energia);
+			GerenciadorEventos.energiaMudou.Invoke(_energia);
 		}
 	}
 	public const int cartasPorTurno = 5;
 
-	// O nível de Contra-Argumento
-	private int _nivelContraArgumento = 0;
-	public int nivelContraArgumento
-	{
-		get => _nivelContraArgumento;
-		set
-		{
-			_nivelContraArgumento = value < 0 ? 0 : value;
-			contraArgumentoMudou.Invoke(_nivelContraArgumento);
-		}
-	}
+	public List<Buff> buffs = new List<Buff> {
+		new Carisma(2),
+	};
 
-	// O nível de auto-confiança
-	private int _autoconfianca = 0;
-	public int autoconfianca
-	{
-		get => _autoconfianca;
-		set
-		{
-			_autoconfianca = value >  10 ?  10
-			               : value < -10 ? -10
-			               : value;
-			autoconfiancaMudou.Invoke(_autoconfianca);
-		}
-	}
 	// Lista de cartas para serem usadas no debate
 	public List<GameObject> baralho = new List<GameObject>();
 
@@ -66,15 +45,21 @@ public class Jogador
 	public List<Carta> cartas;
 
 	private Jogador()
+
 	{
 		cartas = new List<Carta> {
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ArgumentoBasico(),
-			new ContraArgumentoBasico(),
-			new ContraArgumentoBasico()
+			new CausaConsequencia(),
+			new CausaConsequencia(),
+			new CausaConsequencia(),
+			new FakeNews(),
+			new Analogia(),
+			new AdHominem(),
+			new ApeloAutoridade(),
+			new OpiniaoEspecialista(),
+			new OpiniaoEspecialista(),
+			new OpiniaoEspecialista(),
+			new AdHominem(),
+			new ApeloAutoridade(),
 		};
 	}
 
@@ -111,6 +96,5 @@ public class Jogador
 	public void NovoTurno()
 	{
 		energia = energiaPorTurno;
-		nivelContraArgumento = 0;
 	}
 }

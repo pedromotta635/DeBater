@@ -26,9 +26,6 @@ public class TextoIA : MonoBehaviour
 			case Carta.Tipo.Argumento:
 				cor = Utils.vermelho;
 				break;
-			case Carta.Tipo.ContraArgumento:
-				cor = Utils.azul;
-				break;
 			case Carta.Tipo.Falacia:
 				cor = Utils.amarelo;
 				break;

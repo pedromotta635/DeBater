@@ -2,23 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Eventos;
 
 public class TextoEnergia : MonoBehaviour
 {
 	[SerializeField]
 	private TextMeshProUGUI texto;
-	private Jogador jogador = Jogador.jogador;
 
 	void Start()
 	{
-		jogador.energiaMudou.AddListener(SetTexto);
+		GerenciadorEventos.energiaMudou.AddListener(SetTexto);
 		SetTexto();
 	}
 
-	private void SetTexto(int _ = 0)
-	{
-		texto.text = $"<b>{jogador.energia}</b>({jogador.energiaPorTurno})";
-	}
+	private void SetTexto(int _ = 0) => SetTexto(Jogador.jogador.energia, Jogador.jogador.energiaPorTurno);
 
 	public void SetTexto(int energiaAtual, int energiaMaxima)
 	{

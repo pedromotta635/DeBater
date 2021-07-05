@@ -34,7 +34,7 @@ namespace IA
 			{ _efeito = value > 0 ? value : 0;}
 		}
 
-		public EfeitoArgumentar( Ia ia, int efeito)
+		public EfeitoArgumentar(Ia ia, int efeito)
 		{
 			this.ia = ia;
 			this.efeitoInicial = this.efeito = efeito;
@@ -53,36 +53,7 @@ namespace IA
 		}
 	}
 
-	public class EfeitoContraArgumentar : IEfeito
-	{
-		public string texto { get; }
-
-		public Carta.Tipo tipo { get; } = Carta.Tipo.ContraArgumento;
-
-		private readonly int efeitoInicial;
-		private int efeito;
-		private Ia ia;
-
-		public EfeitoContraArgumentar(Ia ia, int efeito)
-		{
-			this.ia = ia;
-			this.efeitoInicial = this.efeito = efeito;
-			this.texto = efeito.ToString();
-		}
-
-		public void AtualizarEfeito(Plateia plateia)
-		{
-			efeito = efeitoInicial + ia.autoconfianca;
-			ia.efeitoMudou.Invoke(this);
-		}
-
-		public void Aplicar(Plateia plateia)
-		{
-			ia.nivelContraArgumento += efeito;
-		}
-	}
-
-	public abstract class Ia
+	public abstract class Ia : IDebatedor
 	{
 		public EventoEfeito efeitoMudou = new EventoEfeito();
 		public EventoInt contraArgumentoMudou = new EventoInt();
@@ -157,9 +128,9 @@ namespace IA
 		public IaBasica()
 		{
 			efeitos = new IEfeito[] {
-				new EfeitoArgumentar(this, 30),
-				new EfeitoArgumentar(this, 40),
-				new EfeitoArgumentar(this, 20)
+				new EfeitoArgumentar(this, 10),
+				new EfeitoArgumentar(this, 15),
+				new EfeitoArgumentar(this, 20),
 			};
 		}
 

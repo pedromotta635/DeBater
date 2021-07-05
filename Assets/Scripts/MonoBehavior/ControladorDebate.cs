@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using Eventos;
@@ -25,15 +26,7 @@ public class ControladorDebate : MonoBehaviour
 	[SerializeField]
 	private TextoIA textoIA;
 	[SerializeField]
-	private TextoContraArgumento textoContraArgumentoJogador;
-	[SerializeField]
-	private TextoContraArgumento textoContraArgumentoIA;
-	[SerializeField]
 	private TextoEnergia textoEnergia;
-	[SerializeField]
-	private TextoAutoconfianca textoAutoconfiancaJogador;
-	[SerializeField]
-	private TextoAutoconfianca textoAutoconfiancaIA;
 
 	public GameObject popup;
 	public Button botaoTurno;
@@ -44,6 +37,8 @@ public class ControladorDebate : MonoBehaviour
 
 	private Jogador jogador = Jogador.jogador;
 
+	public UnityEvent turnoTerminou = new UnityEvent();
+
 	void Awake()
 	{
 		instancia = this;
@@ -52,12 +47,6 @@ public class ControladorDebate : MonoBehaviour
 	void Start()
 	{
 		plateia.debateTerminou.AddListener(FimDeDebate);
-
-		textoContraArgumentoJogador.dono = DonoTexto.Jogador;
-		textoContraArgumentoIA.dono      = DonoTexto.IA;
-
-		textoAutoconfiancaJogador.dono  = DonoTexto.Jogador;
-		textoAutoconfiancaIA.dono       = DonoTexto.IA;
 
 		textoEnergia.SetTexto(jogador.energia, jogador.energiaPorTurno);
 		ia.NovoEfeito();
@@ -118,6 +107,7 @@ public class ControladorDebate : MonoBehaviour
 		AcaoIA();
 		DarCartas();
 		jogador.NovoTurno();
+		turnoTerminou.Invoke();
 	}
 
 	public void AcaoIA()

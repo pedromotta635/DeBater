@@ -50,6 +50,7 @@ public class Arrastavel : MonoBehaviour, ITemTooltip, IDragHandler, IBeginDragHa
 
 	void Update()
 	{
+		carta.AtualizarEfeito(Plateia.instancia);
 		textoNome.text = carta.nome;
 		textoDescricao.text = carta.descricao;
 		textoCusto.text = carta.custo.ToString();

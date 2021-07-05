@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Cartas.Carta;
+using Cartas;
 
 public static class Utils
 {
@@ -11,11 +11,6 @@ public static class Utils
 	public static readonly Color amarelo = Cor(200, 200, 0);
 	public static readonly Color branco = Cor(0, 0, 0);
 	public static System.Random rng = new System.Random();
-
-	/*public static Color Cor(int r, int g, int b)
-	{
-		return new Color((float) r / 255, (float) g / 255, (float) b / 255, 1.0f);
-	}*/
 
 	public static Color Cor(int r, int g, int b, float transparencia = 1.0f)
 	{
@@ -38,19 +33,20 @@ public static class Utils
 
 	#region Extensoes
 
-	public static string ComoString(this Tipo t)
+	public static string ComoString(this Carta.Tipo t)
 	{
 		switch(t)
 		{
-			case Tipo.Argumento:
+			case Carta.Tipo.Argumento:
 				return "Argumento";
-			case Tipo.ContraArgumento:
-				return "Contra-Argumento";
-			case Tipo.Falacia:
+			case Carta.Tipo.Qualidade:
+				return "Qualidade";
+			case Carta.Tipo.Falacia:
 				return "Falacia";
 			default:
 				return "";
 		}
 	}
+	
 	#endregion
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Cartas;
@@ -8,14 +9,19 @@ using IA;
 namespace Eventos
 {
 	public enum ResultadoDebate { Derrota, Vitoria }
-	[System.Serializable]
+	[Serializable]
 	public class EventoResultadoDebate : UnityEvent<ResultadoDebate> {}
-	[System.Serializable]
+	[Serializable]
 	public class EventoCarta : UnityEvent<Carta> {}
-	[System.Serializable]
+	[Serializable]
 	public class EventoInt : UnityEvent<int> {}
-	[System.Serializable]
+	[Serializable]
 	public class EventoString : UnityEvent<string> {}
-	[System.Serializable]
+	[Serializable]
 	public class EventoEfeito : UnityEvent<IEfeito> {}
+
+	public static class GerenciadorEventos
+	{
+		public static readonly EventoInt energiaMudou = new EventoInt();
+	}
 }
