@@ -192,8 +192,8 @@ namespace Cartas
 
 	public class AdHominem : Falacia
 	{
-		public override string nome { get; set; } = "Apelo à Autoridade";
-		private const string _descricao = "Argumenta por <b>[e]</b>/<b>[E]</b>.";
+		public override string nome { get; set; } = "Ad-Hominem";
+		private const string _descricao = "Argumenta por <b>[e]</b>/<b>[E]</b>. Aplica <b>2</b> de <b>Raiva</b> por <b>2</b> turnos.";
 		public override string descricao { get => DescricaoFormatada(_descricao); }
 		public override int custo { get; set; } = 1;
 

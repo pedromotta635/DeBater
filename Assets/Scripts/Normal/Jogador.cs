@@ -34,9 +34,7 @@ public class Jogador : IDebatedor
 	}
 	public const int cartasPorTurno = 5;
 
-	public List<Buff> buffs = new List<Buff> {
-		new Carisma(2),
-	};
+	public List<Buff> buffs = new List<Buff>();
 
 	// Lista de cartas para serem usadas no debate
 	public List<GameObject> baralho = new List<GameObject>();

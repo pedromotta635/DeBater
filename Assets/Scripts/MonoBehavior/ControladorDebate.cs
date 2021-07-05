@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using Eventos;
@@ -142,5 +143,7 @@ public class ControladorDebate : MonoBehaviour
 		popup.SetActive(true);
 		botaoTurno.interactable = false;
 	}
+
+	public void Reiniciar() => SceneManager.LoadScene("Debate", LoadSceneMode.Single);
 }
 
