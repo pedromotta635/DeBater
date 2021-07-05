@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Eventos;
@@ -19,12 +20,10 @@ public class Plateia : MonoBehaviour
 		get => _apoio;
 		set
 		{
-			_apoio = value >  100 ? 100
-			       : value < -100 ? -100
-				   : value;
+			_apoio = Math.Clamp(value, -100, 100);
 			textoApoio.text = _apoio.ToString();
-			if      (apoio >=  100) debateTerminou.Invoke(ResultadoDebate.Vitoria);
-			else if (apoio <= -100) debateTerminou.Invoke(ResultadoDebate.Derrota);
+			if      (_apoio ==  100) debateTerminou.Invoke(ResultadoDebate.Vitoria);
+			else if (_apoio == -100) debateTerminou.Invoke(ResultadoDebate.Derrota);
 		}
 	}
 

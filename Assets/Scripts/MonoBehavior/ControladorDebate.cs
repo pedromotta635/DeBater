@@ -132,18 +132,18 @@ public class ControladorDebate : MonoBehaviour
 
 	private void Vitoria()
 	{
-		popup.transform.GetChild(0).GetComponent<Text>().text = "Vitória!";
+		popup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vitória!";
 		popup.SetActive(true);
 		botaoTurno.interactable = false;
 	}
 
 	private void Derrota()
 	{
-		popup.transform.GetChild(0).GetComponent<Text>().text = "Derrota";
+		popup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Derrota";
 		popup.SetActive(true);
 		botaoTurno.interactable = false;
 	}
 
-	public void Reiniciar() => SceneManager.LoadScene("Debate", LoadSceneMode.Single);
+	public void Reiniciar() => SceneManager.LoadScene("Menu", LoadSceneMode.Single);
 }
 
